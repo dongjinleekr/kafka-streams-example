@@ -21,9 +21,16 @@ libraryDependencies ++= Seq(
   "org.apache.kafka" % "kafka-clients" % kafkaVersion,
   "org.apache.kafka" % "kafka-streams" % kafkaVersion,
   // test dependencies
+  // test common
   "junit" % "junit" % junitVersion % "test",
-  "org.apache.kafka" % "kafka-streams-test-utils" % kafkaVersion % "test",
   "org.hamcrest" % "hamcrest-all" % hamcrestVersion % "test",
+  // TopologyTestDriver
+  "org.apache.kafka" % "kafka-streams-test-utils" % kafkaVersion % "test",
+  // EmbeddedKafkaCluster
+  "org.apache.kafka" % "kafka_2.12" % kafkaVersion % "test",
+  ("org.apache.kafka" % "kafka_2.12" % kafkaVersion classifier "test") % "test",
+  ("org.apache.kafka" % "kafka-clients" % kafkaVersion classifier "test") % "test",
+  ("org.apache.kafka" % "kafka-streams" % kafkaVersion classifier "test") % "test",
 )
 
 javacOptions ++= Seq("-source", "1.8")
