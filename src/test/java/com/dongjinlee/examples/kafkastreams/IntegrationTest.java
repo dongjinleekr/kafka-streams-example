@@ -19,9 +19,11 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static com.dongjinlee.examples.kafkastreams.assertj.Assertions.assertThat;
 
+/**
+ * Integration test using {@link EmbeddedKafkaCluster}
+ */
 public class IntegrationTest {
   @ClassRule
   public final static EmbeddedKafkaCluster CLUSTER = new EmbeddedKafkaCluster(1);
@@ -88,8 +90,8 @@ public class IntegrationTest {
     streams.close();
 
     // assertions
-    assertThat(actualWordCounts.get(0), equalTo(expected.get(0)));
-    assertThat(actualWordCounts.get(1), equalTo(expected.get(1)));
-    assertThat(actualWordCounts.get(2), equalTo(expected.get(2)));
+    assertThat(actualWordCounts.get(0)).hasSameKeyValue(expected.get(0));
+    assertThat(actualWordCounts.get(1)).hasSameKeyValue(expected.get(1));
+    assertThat(actualWordCounts.get(2)).hasSameKeyValue(expected.get(2));
   }
 }

@@ -11,9 +11,11 @@ import org.apache.kafka.streams.test.ConsumerRecordFactory;
 import org.apache.kafka.test.StreamsTestUtils;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static com.dongjinlee.examples.kafkastreams.assertj.Assertions.assertThat;
 
+/**
+ * Unit test example using {@link TopologyTestDriver}.
+ */
 public class TopologyTest {
 
   private final static String APPLICATION_ID = "test-app-id";
@@ -24,11 +26,6 @@ public class TopologyTest {
       new ConsumerRecordFactory<>(Serdes.String().serializer(), Serdes.String().serializer());
   private final Properties props = StreamsTestUtils.getStreamsConfig(APPLICATION_ID, "localhost:9092",
       Serdes.String().getClass().getName(), Serdes.String().getClass().getName(), new Properties());
-
-  public static void compareKeyAndValue(ProducerRecord<String, Long> lhs, ProducerRecord<String, Long> rhs) {
-    assertThat(lhs.key(), equalTo(rhs.key()));
-    assertThat(lhs.value(), equalTo(rhs.value()));
-  }
 
   @Test
   public void test() {
@@ -53,7 +50,7 @@ public class TopologyTest {
     for (ProducerRecord<String, Long> expected : expectedList) {
       ProducerRecord<String, Long> actual = driver.
           readOutput(OUTPUT_TOPIC, Serdes.String().deserializer(), Serdes.Long().deserializer());
-      compareKeyAndValue(actual, expected);
+      assertThat(actual).hasSameKeyValue(expected);
     }
   }
 }
