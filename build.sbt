@@ -24,6 +24,8 @@ libraryDependencies ++= Seq(
   // common testing libraries
   "junit" % "junit" % junitVersion % "test",
   "org.assertj" % "assertj-core" % assertjVersion % "test",
+  // run junit tests directly from sbt
+  "com.novocode" % "junit-interface" % "0.11" % "test",
   // kafka streams common testing libraries
   ("org.apache.kafka" % "kafka-clients" % kafkaVersion classifier "test") % "test",
   ("org.apache.kafka" % "kafka-streams" % kafkaVersion classifier "test") % "test",
